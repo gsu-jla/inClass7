@@ -89,6 +89,7 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
   bool _isVisible = true;
   Color _textColor = Colors.black;
   bool _isDarkMode = false;
+  bool _showFrame = false;
 
   void toggleVisibility() {
     setState(() {
@@ -159,13 +160,11 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
-            // Color picker button
             IconButton(
               icon: const Icon(Icons.color_lens),
               onPressed: _showColorPicker,
               tooltip: 'Change Text Color',
             ),
-            // Theme toggle button
             IconButton(
               icon: Icon(_isDarkMode ? Icons.light_mode : Icons.dark_mode),
               onPressed: toggleTheme,
@@ -173,19 +172,52 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
             ),
           ],
         ),
-        body: Center(
-          child: AnimatedOpacity(
-            opacity: _isVisible ? 1.0 : 0.0,
-            duration: widget.duration,
-            curve: Curves.easeInOut,
-            child: Text(
-              'Hello, Flutter!',
-              style: TextStyle(
-                fontSize: 24,
-                color: _textColor,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Show Frame'),
+                  const SizedBox(width: 10),
+                  Switch(
+                    value: _showFrame,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _showFrame = value;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
-          ),
+            Center(
+              child: Container(
+                decoration: _showFrame ? BoxDecoration(
+                  border: Border.all(
+                    color: _isDarkMode ? Colors.white : Colors.blue,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ) : null,
+                padding: const EdgeInsets.all(16.0),
+                child: AnimatedOpacity(
+                  opacity: _isVisible ? 1.0 : 0.0,
+                  duration: widget.duration,
+                  curve: Curves.easeInOut,
+                  child: Text(
+                    'Hello, Flutter!',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: _textColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: toggleVisibility,
