@@ -94,6 +94,14 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
     });
   }
 
+  // placeholder color picker
+  void colorPicker() {
+    setState(() {
+      //code here
+      
+    });
+  }
+
   // var for toggle buttons
   final List<bool> _selectedWeather = <bool>[true, false];
   bool vertical = false;
@@ -104,6 +112,7 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
+          IconButton(onPressed: colorPicker, icon: const Icon(Icons.palette_outlined)),
           const SizedBox(height: 5),
               ToggleButtons(   //toggle for day-night
                 direction: vertical ? Axis.vertical : Axis.horizontal,
