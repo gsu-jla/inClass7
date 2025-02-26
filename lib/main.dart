@@ -32,6 +32,7 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Fading Text Animation'),
+        
       ),
       body: Center(
         child: AnimatedOpacity(
@@ -43,6 +44,7 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
           ),
         ),
       ),
+      
       floatingActionButton: FloatingActionButton(
         onPressed: toggleVisibility,
         child: Icon(Icons.play_arrow),
